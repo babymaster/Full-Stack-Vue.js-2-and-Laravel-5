@@ -3,6 +3,31 @@ var app = new Vue({
     data: {
         title: sample.title,
         address: sample.address,
-        about: sample.about
+        about: sample.about,
+        headerImageStyle: {
+            'background-image' : 'url(sample/header.jpg)'
+        },
+        amenities: sample.amenities,
+        prices: sample.prices,
+        isContracted: true,
+        modalOpen: false
+    },
+    watch: {
+        modalOpen: function () {
+            var className = 'modal-open';
+            if ( this.modalOpen )
+            {
+                document.body.classList.add( className );
+            }
+            else
+            {
+                document.body.classList.remove( className );
+            }
+        }
+    }
+});
+document.addEventListener( '<span>keyup</span>',function(evt) {
+    if (evt.keyCode === 27 && app.modalOpen) {
+        app.modalOpen = false;
     }
 });
