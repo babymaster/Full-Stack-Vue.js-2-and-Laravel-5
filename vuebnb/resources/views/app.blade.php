@@ -5,9 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Vuebnb</title>
-    <link rel="stylesheet" href="node_modules/open-sans-all/css/open-sans.css">
-    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css">
 </head>
 <body>
 <div id="toolbar">
@@ -22,12 +20,12 @@
     </div>
     <div class="container">
         <div class="heading">
-            <h1>{{ title }}</h1>
-            <p>{{ address }}</p>
+            <h1>@{{ title }}</h1>
+            <p>@{{ address }}</p>
         </div>
         <div class="about">
             <h3>About this listing</h3>
-            <p v-bind:class="{contracted: isContracted}">{{ about }}</p>
+            <p v-bind:class="{contracted: isContracted}">@{{ about }}</p>
             <button class="more" v-if="isContracted" v-on:click="isContracted=false">+ More</button>
         </div>
         <div class="lists">
@@ -36,7 +34,7 @@
                 <div class="content">
                     <div class="list-item" v-for="amenity in amenities">
                         <i class="fa fa-lg" v-bind:class="amenity.icon"></i>
-                        <span>{{ amenity.title }}</span>
+                        <span>@{{ amenity.title }}</span>
                     </div>
                 </div>
             </div><hr>
@@ -44,7 +42,7 @@
                 <div class="title"><strong>Prices</strong></div>
                 <div class="content">
                     <div class="list-item" v-for="price in prices">
-                        {{price.title}}: <strong>{{price.value}}</strong>
+                        @{{price.title}}: <strong>@{{price.value}}</strong>
                     </div>
                 </div>
             </div>
@@ -52,11 +50,9 @@
     </div>
     <div id="modal" v-bind:class="{show: modalOpen}">
         <button v-on:click="modalOpen=false" class="modal-close">X</button>
-        <div class="modal-content"><img src="sample/header.jpg"></div>
+        <div class="modal-content"><img src="images/header.jpg"></div>
     </div>
 </div>
-<script src="node_modules/vue/dist/vue.js"></script>
-<script src="sample/data.js"></script>
-<script src="app.js"></script>
+<script src="{{asset('js/app.js')}}"></script>
 </body>
 </html>
