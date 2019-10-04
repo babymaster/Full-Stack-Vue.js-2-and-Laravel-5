@@ -1,20 +1,32 @@
+import "core-js/fn/object/assign";
 import Vue from 'vue';
-import sample from './data';
+import { populateAmenitiesAndPrices } from './helpers';
+if ( typeof Object.assign != 'function' ) {
+    Object.assign;
+}
+let model = JSON.parse(window.vuebnb_listing_model);
+model = populateAmenitiesAndPrices(model);
+Vue.component( 'image-carousel', {
+    template: '<div class="image-carousel"><img :src="images[index]"></div>',
+    data() {
+        return {
+            images: [
+                '/images/1/Image_1.jpg',
+                '/images/1/Image_2.jpg',
+                '/images/1/Image_3.jpg',
+                '/images/1/Image_4.jpg'
+            ],
+            index: 0
+        }
+    }
+});
 var app = new Vue({
     el: '#app',
-    data: {
-        title: sample.title,
-        address: sample.address,
-        about: sample.about,
-        headerImageStyle: {
-            'background-image' : 'url(sample/header.jpg)'
-        },
-        amenities: sample.amenities,
-        prices: sample.prices,
+    data: Object.assign( model, {
+        headerImageStyle: { 'background-image': 'url(' + model.images[0] + ')' },
         isContracted: true,
-        modalOpen: false,
-        message: 'hello world!'
-    },
+        modalOpen: false
+    }),
     watch: {
         modalOpen: function () {
             var className = 'modal-open';
