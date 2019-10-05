@@ -7,7 +7,7 @@ if ( typeof Object.assign != 'function' ) {
 let model = JSON.parse(window.vuebnb_listing_model);
 model = populateAmenitiesAndPrices(model);
 Vue.component( 'image-carousel', {
-    template: '<div class="image-carousel"><img :src="images[index]"></div>',
+    template: '<div class="image-carousel"><img :src="image"></div>',
     data() {
         return {
             images: [
@@ -17,6 +17,11 @@ Vue.component( 'image-carousel', {
                 '/images/1/Image_4.jpg'
             ],
             index: 0
+        }
+    },
+    computed: {
+        image() {
+            return this.images[this.index];
         }
     }
 });
