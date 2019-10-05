@@ -53,7 +53,7 @@
     </div>
     <div id="modal" v-bind:class="{show: modalOpen}">
         <button v-on:click="modalOpen=false" class="modal-close">X</button>
-        <div class="modal-content"><image-carousel></image-carousel></div>
+        <div class="modal-content"><image-carousel :images="images"></image-carousel></div>
     </div>
 </div>
 <script src="{{asset('js/app.js')}}"></script>

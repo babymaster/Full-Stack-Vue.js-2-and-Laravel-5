@@ -183,6 +183,21 @@ button {
   width: 100%;
 }
 
+.image-carousel {
+    height: 100%;
+    margin-top: -12vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-control {
+    padding: 1rem;
+    color: #ffffff;
+    opacity: 0.85
+}
+
 @media (max-width: 743px) {
   .list .title {
     flex: 1 1 33%;
@@ -193,4 +208,10 @@ button {
   .list .list-item {
     flex: 0 0 100%;
   }
+}
+
+@media (min-width: 744px) {
+    .carousel-control {
+        font-size: 3rem;
+    }
 }
