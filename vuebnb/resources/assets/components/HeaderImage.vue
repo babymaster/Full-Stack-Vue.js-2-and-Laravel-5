@@ -3,21 +3,26 @@
         <div class="header-img" @click="$emit('header-clicked')" :style="headerImageStyle">
             <button class="view-photos">View Photos</button>
         </div>
-    </div>    
+        <listing-save :id="id" :button="true"></listing-save>    
+        <button class="view-photos">View Photos</button>
+    </div>
 </template>
 <script>
+import ListingSave from '../components/ListingSave';
 export default {
     computed: {
             headerImageStyle() { 
                 return { 'background-image': 'url(' + this.imageUrl + ')'  }
             }
     },
-    props: ['image-url']
+    props: ['image-url', 'id'],
+    components: { ListingSave }
 }
 </script>
 <style>
 .header {
   height: 320px;
+  position: relative;
 }
 .header .header-img {
   background-repeat: no-repeat;

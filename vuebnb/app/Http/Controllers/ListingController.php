@@ -7,28 +7,39 @@ use Illuminate\Http\Request;
 
 class ListingController extends Controller
 {
+	private function get_listing_summaries() 
+	{
+		$collection = Listing::all([ 'id', 'address', 'title', 'price_per_night' ]);
+		$collection->transform( function( $listing ) {
+			$listing->thumb = asset( 'images/' . $listing->id .'/Image_1_thumb.jpg' ); 
+			return $listing;
+		} );
+		return collect(['listings' => $collection->toArray()]);
+	}
+
+	private function add_meta_data( $collection, $request )
+	{
+		return $collection->merge(['path' => $request->getPathInfo()]);
+	}
+
 	public function get_listing_api( Listing $listing )
 	{
 		$data = $this->get_listing( $listing );
 		return response()->json( $data );
 	}
 
-	public function get_listing_web( Listing $listing )
+	public function get_listing_web( Listing $listing, Request $request )
 	{
-		$model = $this->get_listing( $listing );
-		return view('app')->with( 'data', $model );
+		$data = $this->get_listing( $listing );
+		$data = $this->add_meta_data( $data, $request );
+		return view('app')->with( 'data', $data );
 	}
 
-	public function get_home_web()
+	public function get_home_web( Request $request )
 	{
-		$collection = Listing::all(['id','address','price_per_night']);
-		$collection->transform( function ( $listing )
-		{
-			# code...
-			$listing->thumb = asset( 'images/' . $listing->id . '/Image_1_thumb.jpg' );
-			return $listing;
-		});
-		$data = collect( ['listings' => $collection->toArray()] );
+
+		$data = $this->get_listing_summaries();
+		$data = $this->add_meta_data( $data, $request );
 		return view( 'app' )->with( 'data', $data );
 	}
 

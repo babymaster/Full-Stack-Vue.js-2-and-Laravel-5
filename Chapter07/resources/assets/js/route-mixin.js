@@ -12,11 +12,3 @@ function getData(to) {
     }
   });
 };
-
-export default {
-  beforeRouteEnter: (to, from, next) => {
-    getData(to).then((data) => {
-      next(component => component.assignData(data));
-    });
-  }
-};

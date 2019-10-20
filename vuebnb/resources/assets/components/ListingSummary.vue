@@ -1,30 +1,36 @@
 <template>
     <div class="listing-summary">
-        <div class="wrapper">
-            <div class="thumbnail" :class="backgroundImageStyle"></div>
-            <div class="info title">
-                <span>{{ listing.price_per_night }}</span>
-                <span>{{ listing.title }}</span>
+        <router-link :to="{ name: 'listing', params: { listing: listing.id } }">
+            <div class="wrapper">
+                <div class="thumbnail" :style="backgroundImageStyle"></div>
+                <div class="info title">
+                    <span>{{ listing.price_per_night }}</span>
+                    <span>{{ listing.title }}</span>
+                </div>
+                <div class="info address">
+                    <span>{{ listing.address }}</span>
+                </div>
             </div>
-            <div class="info address">
-                <span>{{ listing.address }}</span>
-            </div>
-        </div>
+        </router-link>
+        <listing-save :id="listing.id"></listing-save>
     </div>
 </template>
 <script>
+import ListingSave from '../components/ListingSave';
 export default {
     props: ['listing'],
     computed: {
         backgroundImageStyle() {
             return { 'background-image': 'url(' + this.listing.thumb + ')' };
         }
-    }
+    },
+    components: {ListingSave}
 }
 </script>
 <style>
 .listing-summary {
     flex: 0 0 auto;
+    position: relative;
 }
 
 .listing-summary a {
@@ -63,4 +69,9 @@ export default {
     font-size: 14px;
     line-height: 18px;
 }
+
+@media (max-width: 400px) { 
+    .listing-summary .listing-save { left: 15px; right:auto; } 
+}
+
 </style>
