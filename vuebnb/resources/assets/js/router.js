@@ -17,7 +17,7 @@ let router = new VueRouter({
         { path: '/login', component: LoginPage, name: 'login' }
     ],
     scrollBehavior( to,from, savedPosition ) {
-        return { x: 0, y: 0 }
+        return { x: 0, y: 0 };
     }
 });
 router.beforeEach(( to, from, next ) => {
@@ -35,6 +35,7 @@ router.beforeEach(( to, from, next ) => {
     }
     else {
         store.commit( 'addData', { route: to.name, data: serverData } );
+        serverData.saved.forEach( id => store.commit( 'toggleSaved', id ) );
         next();
     }
 } );
